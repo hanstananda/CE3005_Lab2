@@ -3,40 +3,45 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 
 public class Rfc865UdpClient {
+
+    static DatagramSocket socket;
     public static void main(String[] args) {
-        //Open UDP Socket
-        DatagramSocket socket = null;
+        //
+        // 1. Open UDP Socket
+        //
         try{
-            socket = new DatagramSocket();
+            socket = new DatagramSocket(); // init
             InetAddress IpAddress = InetAddress.getByName("localhost");
             socket.connect(IpAddress, 17);
 
         }catch(SocketException e){
             e.printStackTrace();
             System.exit(-1);
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
         }
 
         try {
-            //send UDP request to server
-            byte[] buf = "Hans Tananda, FEP2, <LaterPutClientIPAddressHere>".getBytes("UTF-8");
-            DatagramPacket request = new DatagramPacket(buf, buf.length);
+            //
+            // 2. Send UDP request to server
+            //
+            byte[] buffer = "Hans Tananda, FEP2, 172.21.150.135".getBytes("UTF-8");
+            DatagramPacket request = new DatagramPacket(buffer, buffer.length);
             socket.send(request);
 
-            //receive UDP reply from server
-            byte[] replyBuf = new byte[512];
-            DatagramPacket reply = new DatagramPacket(replyBuf, replyBuf.length);
+            //
+            // 3. Receive UDP reply from server
+            //
+            byte[] reply_buffer = new byte[512];
+            DatagramPacket reply = new DatagramPacket(reply_buffer, reply_buffer.length);
             socket.receive(reply);
 
-            String quote = new String(replyBuf);
+            String quote = new String(reply_buffer);
             System.out.println(quote);
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally{
             socket.close();
