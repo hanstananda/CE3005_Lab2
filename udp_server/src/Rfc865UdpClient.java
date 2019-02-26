@@ -1,3 +1,9 @@
+/*
+Name        : Hans Tananda
+Group       : FEP2
+IP Address  : 172.21.150.135
+
+ */
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
@@ -11,7 +17,7 @@ public class Rfc865UdpClient {
         //
         try{
             socket = new DatagramSocket(); // init
-            InetAddress IpAddress = InetAddress.getByName("localhost");
+            InetAddress IpAddress = InetAddress.getByName("hw1-b00");
             socket.connect(IpAddress, 17);
 
         }catch(SocketException e){
@@ -33,7 +39,7 @@ public class Rfc865UdpClient {
             //
             // 3. Receive UDP reply from server
             //
-            byte[] reply_buffer = new byte[512];
+            byte[] reply_buffer = new byte[1024]; // max size is 65508
             DatagramPacket reply = new DatagramPacket(reply_buffer, reply_buffer.length);
             socket.receive(reply);
 
