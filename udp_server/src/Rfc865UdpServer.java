@@ -22,20 +22,25 @@ public class Rfc865UdpServer {
 
         while(true){
             try{
+                //
+                // 2. Listen for UDP request from client
+                //
 
-                //listen for UDP request from client
-                byte[] buf = new byte[512];
-                DatagramPacket request = new DatagramPacket(buf, buf.length);
+                byte[] buffer = new byte[512];
+                DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                 socket.receive(request);
 
-                String s = new String(buf);
+                String s = new String(buffer);
                 System.out.println(s);
 
                 InetAddress IPAddress = request.getAddress();
                 int port = request.getPort();
 
-                //send UDP reply to client
-                byte[] replyBuf = "Some quote here".getBytes("UTF-8");
+                //
+                // 3. Send UDP reply to client
+                //
+
+                byte[] replyBuf = "Hi there from the other side of the world!".getBytes("UTF-8");
                 DatagramPacket reply = new DatagramPacket(replyBuf, replyBuf.length,IPAddress,port);
                 socket.send(reply);
             }catch(IOException e){
