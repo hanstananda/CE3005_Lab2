@@ -1,3 +1,11 @@
+/*
+Name        : Hans Tananda
+Group       : FEP2
+IP Address  : 172.21.150.135
+
+ */
+
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -18,7 +26,6 @@ public class Rfc865UdpServer {
             e.printStackTrace();
             System.exit(-1);
         }
-        //System.out.println("Socket bind complete: "+socket.getInetAddress().getHostAddress()+":"+socket.getPort());
 
         while(true){
             try{
@@ -26,7 +33,7 @@ public class Rfc865UdpServer {
                 // 2. Listen for UDP request from client
                 //
 
-                byte[] buffer = new byte[512];
+                byte[] buffer = new byte[1024]; // max size is 65508
                 DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                 socket.receive(request);
 
